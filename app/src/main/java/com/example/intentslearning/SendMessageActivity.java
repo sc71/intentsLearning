@@ -10,7 +10,7 @@ import android.widget.EditText;
 public class SendMessageActivity extends AppCompatActivity {
 
     public static final String EXTRA_SENT_MESSAGE = "themessage";
-    private Button buttonSend;
+    private Button buttonSend, buttonShare;
     private EditText edittextSend;
 
     @Override
@@ -23,8 +23,15 @@ public class SendMessageActivity extends AppCompatActivity {
     private void wireWidgets() {
         buttonSend = findViewById(R.id.button_sendmessage_send);
         edittextSend = findViewById(R.id.edittext_sendmessage_msg);
+        buttonShare = findViewById(R.id.button_sendmessage_share);
     }
 
+    public void share(View view){
+        Intent intentShare = new Intent(Intent.ACTION_SEND);
+        intentShare.setType("text/plain");
+        intentShare.putExtra(EXTRA_SENT_MESSAGE, edittextSend.getText().toString());
+        startActivity(intentShare);
+    }
     public void sendMessage(View view) {
         String message = edittextSend.getText().toString();
         Intent intent = new Intent(SendMessageActivity.this, ReceiveMessageActivity.class);
